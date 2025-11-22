@@ -1,7 +1,7 @@
 {
-  "name": "template3-expressjs",
+  "name": "blog-api",
   "version": "1.0.0",
-  "description": "This express template is build as a RESTAPI and made in a way only specific sites can access its data",
+  "description": "This is an API for my blog that was made for the odin project",
   "main": "app.js",
   "type": "module",
   "scripts": {
@@ -16,15 +16,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ChoforJr/template3-expressjs.git"
+    "url": "git+https://github.com/ChoforJr/blog-api.git"
   },
   "keywords": [],
   "author": "FORSAKANG CHOFOR JUNIOR",
   "license": "",
   "bugs": {
-    "url": "https://github.com/ChoforJr/template3-expressjs/issues"
+    "url": "https://github.com/ChoforJr/blog-api/issues"
   },
-  "homepage": "https://github.com/ChoforJr/template3-expressjs#readme",
+  "homepage": "https://github.com/ChoforJr/blog-api#readme",
   "dependencies": {
     "@prisma/client": "^6.19.0",
     "bcryptjs": "^3.0.2",
