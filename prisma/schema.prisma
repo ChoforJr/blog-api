@@ -26,11 +26,11 @@ model User {
 }
 
 model Profile {
-  id          Int    @id @default(autoincrement())
-  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      Int    @unique
+  id          Int     @id @default(autoincrement())
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      Int     @unique
   displayName String
-  bio         String
+  bio         String?
 }
 
 model Post {
@@ -38,9 +38,10 @@ model Post {
   title       String
   content     String
   published   Boolean   @default(false)
-  author      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId    Int
-  publishedAt DateTime
+  createdAt   DateTime  @default(now())
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      Int
+  publishedAt DateTime?
   comments    Comment[]
 }
 
