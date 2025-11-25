@@ -2,12 +2,22 @@ import prisma from "../config/prisma.js";
 
 export async function getUsers() {
   const users = await prisma.user.findMany({
-    // include: {
-    //   files: true,
-    //   folders: true,
-    // },
+    where: { role: "USER" },
   });
   return users;
+}
+
+export async function getAdmin() {
+  const user = await prisma.user.findFirst({
+    where: { role: "ADMIN" },
+    orderBy: {
+      id: "desc",
+    },
+    include: {
+      profile: true,
+    },
+  });
+  return user;
 }
 
 export async function getUserInfoByUsername(username) {
@@ -20,10 +30,6 @@ export async function getUserInfoByUsername(username) {
 export async function getUserInfoByID(userId) {
   const user = await prisma.user.findUnique({
     where: { id: userId },
-    // include: {
-    //   files: true,
-    //   folders: true,
-    // },
   });
   return user;
 }

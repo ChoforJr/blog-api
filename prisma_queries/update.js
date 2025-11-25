@@ -1,4 +1,15 @@
-// import prisma from "../config/prisma.js";
+import prisma from "../config/prisma.js";
+
+export async function updateUserBio(userId, text) {
+  await prisma.profile.update({
+    where: {
+      userId: userId,
+    },
+    data: {
+      bio: text,
+    },
+  });
+}
 
 // export async function updateFolder(folderID, newTitle) {
 //   await prisma.folders.update({
