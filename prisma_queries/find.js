@@ -23,8 +23,6 @@ export async function findAdmin() {
       username: true,
       createdAt: true,
       role: true,
-    },
-    include: {
       profile: true,
     },
   });
@@ -46,8 +44,6 @@ export async function findUserByID(userId) {
       username: true,
       createdAt: true,
       role: true,
-    },
-    include: {
       profile: true,
     },
   });
