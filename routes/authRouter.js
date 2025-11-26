@@ -2,7 +2,7 @@ import { Router } from "express";
 import passport from "passport";
 import { authLogin } from "../config/passport.js";
 
-import { addNewUser } from "../controllers/postToDB.js";
+import { addNewUser } from "../controllers/post.js";
 import {
   checkSignUpValidationResult,
   validateSignUpRules,

@@ -10,7 +10,7 @@ import {
   getFileByID,
   getFoldersByID,
   getAllFiles,
-  getUserInfoByID,
+  findUserByID,
 } from "../prisma_queries/find.js";
 
 export async function deleteFolder(req, res, next) {
@@ -91,7 +91,7 @@ export async function deleteAllManually(req, res, next) {
 export async function deleteAUser(req, res, next) {
   try {
     const userID = Number(req.params.id);
-    const user = await getUserInfoByID(userID);
+    const user = await findUserByID(userID);
     if (!user) {
       res.json({ message: "User not found" });
       return;

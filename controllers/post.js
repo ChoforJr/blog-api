@@ -3,13 +3,13 @@ import dotenv from "dotenv";
 dotenv.config({ path: path.resolve(process.cwd(), ".env") });
 
 import { insertAdmin, insertUser } from "../prisma_queries/create.js";
-import { getAdmin } from "../prisma_queries/find.js";
+import { findAdmin } from "../prisma_queries/find.js";
 import { matchedData } from "express-validator";
 import { hash } from "bcryptjs";
 
 async function createAdmin() {
   try {
-    const checkAdmin = await getAdmin();
+    const checkAdmin = await findAdmin();
     if (checkAdmin) {
       return console.log("Admin Already exist");
     }
@@ -28,10 +28,10 @@ createAdmin();
 
 export async function addNewUser(req, res, next) {
   try {
-    const { username, password } = matchedData(req);
+    const { username, password, displayName } = matchedData(req);
     const hashedPassword = await hash(password, 10);
     const usernameLowerCase = username.toLowerCase();
-    await insertUser(usernameLowerCase, hashedPassword);
+    await insertUser(usernameLowerCase, hashedPassword, displayName);
     res.sendStatus(200);
   } catch (err) {
     return next(err);

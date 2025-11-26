@@ -11,11 +11,11 @@ import {
 } from "passport-jwt";
 import jwt from "jsonwebtoken";
 
-import { getUserInfoByUsername } from "../prisma_queries/find.js";
+import { findUserByUsername } from "../prisma_queries/find.js";
 
 async function verifyCallback(username, password, done) {
   try {
-    const user = await getUserInfoByUsername(username.toLowerCase());
+    const user = await findUserByUsername(username.toLowerCase());
 
     if (!user) {
       return done(null, false, { message: "Incorrect username" });

@@ -1,5 +1,5 @@
 import { body, validationResult } from "express-validator";
-import { getUserInfoByUsername } from "../prisma_queries/find.js";
+import { findUserByUsername } from "../prisma_queries/find.js";
 
 export const validateSignUpRules = [
   body("username")
@@ -9,7 +9,7 @@ export const validateSignUpRules = [
     .isLength({ min: 8, max: 250 })
     .withMessage("Email: Has to have a length of between 8 and 250")
     .custom(async (value) => {
-      const user = await getUserInfoByUsername(value);
+      const user = await findUserByUsername(value);
       if (!user) {
         return true;
       }
