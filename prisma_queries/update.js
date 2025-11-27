@@ -1,45 +1,45 @@
 import prisma from "../config/prisma.js";
 
-export async function updateUserBio(userId, text) {
+export async function updateBio(userId, newBio) {
   await prisma.profile.update({
     where: {
       userId: userId,
     },
     data: {
-      bio: text,
+      bio: newBio,
     },
   });
 }
 
-// export async function updateFolder(folderID, newTitle) {
-//   await prisma.folders.update({
-//     where: {
-//       id: folderID,
-//     },
-//     data: {
-//       title: newTitle,
-//     },
-//   });
-// }
+export async function updateDisplayName(userId, newDisplayName) {
+  await prisma.profile.update({
+    where: {
+      userId: userId,
+    },
+    data: {
+      displayName: newDisplayName,
+    },
+  });
+}
 
-// export async function updateFileFolder(fileId, folderId) {
-//   await prisma.files.update({
-//     where: {
-//       id: fileId,
-//     },
-//     data: {
-//       foldersId: folderId,
-//     },
-//   });
-// }
+export async function updateUsername(userId, newUsername) {
+  await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      username: newUsername,
+    },
+  });
+}
 
-// export async function userIsAdmin(userId) {
-//   await prisma.user.update({
-//     where: {
-//       id: userId,
-//     },
-//     data: {
-//       is_admin: true,
-//     },
-//   });
-// }
+export async function updatePassword(userId, newPassword) {
+  await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      password: newPassword,
+    },
+  });
+}

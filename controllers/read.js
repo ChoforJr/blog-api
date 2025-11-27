@@ -6,6 +6,16 @@ import {
   findProfiles,
 } from "../prisma_queries/find.js";
 
+export function checkIfUserIsAdmin(req, res, next) {
+  if (req.user.role !== "ADMIN") {
+    return res.json({
+      error: "You are not authorized to access this information",
+    });
+  } else {
+    return next();
+  }
+}
+
 export async function readAdmin(req, res, next) {
   try {
     const adminInfo = await findAdmin();

@@ -1,34 +1,47 @@
-// import {
-//   userIsAdmin,
-//   updateFolder,
-//   updateFileFolder,
-// } from "../prisma_queries/update.js";
-// import { matchedData } from "express-validator";
+import {
+  updateUsername,
+  updatePassword,
+  updateDisplayName,
+  updateBio,
+} from "../prisma_queries/update.js";
+import { matchedData } from "express-validator";
 
-// export async function editFolder(req, res, next) {
-//   try {
-//     const { title } = matchedData(req);
-//     const folderID = Number(req.params.id);
-//     await updateFolder(folderID, title);
-//     res.redirect("/");
-//   } catch (err) {
-//     return next(err);
-//   }
-// }
+export async function editUserName(req, res, next) {
+  try {
+    const { newUsername } = matchedData(req);
+    await updateUsername(req.user.id, newUsername);
+    res.sendStatus(200);
+  } catch (err) {
+    return next(err);
+  }
+}
 
-// export async function editFileFolder(req, res, next) {
-//   try {
-//     const { folder } = matchedData(req);
-//     const folderID = Number(folder);
-//     const fileID = Number(req.params.id);
-//     await updateFileFolder(fileID, folderID);
-//     res.redirect("/");
-//   } catch (err) {
-//     return next(err);
-//   }
-// }
+export async function editPassword(req, res, next) {
+  try {
+    const { newPassword } = matchedData(req);
+    await updatePassword(req.user.id, newPassword);
+    res.sendStatus(200);
+  } catch (err) {
+    return next(err);
+  }
+}
 
-// export async function userBecomeAdmin(req, res) {
-//   await userIsAdmin(req.user.id);
-//   res.redirect("/");
-// }
+export async function editDisplayName(req, res, next) {
+  try {
+    const { newDisplayName } = matchedData(req);
+    await updateDisplayName(req.user.id, newDisplayName);
+    res.sendStatus(200);
+  } catch (err) {
+    return next(err);
+  }
+}
+
+export async function editBio(req, res, next) {
+  try {
+    const { newBio } = matchedData(req);
+    await updateBio(req.user.id, newBio);
+    res.sendStatus(200);
+  } catch (err) {
+    return next(err);
+  }
+}

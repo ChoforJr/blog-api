@@ -7,6 +7,7 @@ export async function findUsers() {
       username: true,
       createdAt: true,
       role: true,
+      profile: true,
     },
   });
   return users;
@@ -63,50 +64,3 @@ export async function findProfiles() {
   const profiles = await prisma.profile.findMany({});
   return profiles;
 }
-
-// export async function getFoldersByID(folderID) {
-//   const folders = await prisma.folders.findUnique({
-//     where: {
-//       id: folderID,
-//     },
-//     include: {
-//       files: true,
-//     },
-//   });
-//   return folders;
-// }
-
-// export async function getFilesByFolderID(folderID) {
-//   const files = await prisma.files.findMany({
-//     where: {
-//       foldersId: folderID,
-//     },
-//     include: {
-//       folders: true,
-//     },
-//   });
-//   return files;
-// }
-
-// export async function getFoldersByUserID(userID) {
-//   const folders = await prisma.folders.findMany({
-//     where: {
-//       authorId: userID,
-//     },
-//   });
-//   return folders;
-// }
-
-// export async function getFileByID(fileID) {
-//   const file = await prisma.files.findUnique({
-//     where: {
-//       id: fileID,
-//     },
-//   });
-//   return file;
-// }
-
-// export async function getAllFiles() {
-//   const files = await prisma.files.findMany();
-//   return files;
-// }
