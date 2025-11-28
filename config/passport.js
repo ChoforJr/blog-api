@@ -64,7 +64,7 @@ export async function authLogin(req, res, next) {
         if (error) return next(error);
 
         // We verify the user, now we generate the token
-        const body = { id: user.id, username: user.username };
+        const body = { id: user.id, username: user.username, role: user.role };
         const token = jwt.sign({ user: body }, process.env.SECRET_KEY, {
           expiresIn: "1h",
         });

@@ -54,7 +54,7 @@ export async function readUserByID(req, res, next) {
 
 export async function readProfileByUserId(req, res, next) {
   try {
-    const profile = await findProfileByUserID(req.params.id);
+    const profile = await findProfileByUserID(Number(req.params.id));
     res.json({ profile });
   } catch (err) {
     return next(err);

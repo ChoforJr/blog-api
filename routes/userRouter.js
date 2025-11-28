@@ -9,6 +9,6 @@ const userRouter = Router();
 
 userRouter.get("/profile/admin", readAdminProfile);
 userRouter.get("/profile/:id", readProfileByUserId);
-userRouter.get("/", readUserByID);
+userRouter.get("/myProfile", readUserByID);
 
 export default userRouter;
