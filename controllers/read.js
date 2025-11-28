@@ -3,7 +3,6 @@ import {
   findUsers,
   findUserByID,
   findProfileByUserID,
-  findProfiles,
 } from "../prisma_queries/find.js";
 
 export function checkIfUserIsAdmin(req, res, next) {
@@ -46,7 +45,7 @@ export async function readUsers(req, res, next) {
 
 export async function readUserByID(req, res, next) {
   try {
-    const user = await findUserByID(req.params.id);
+    const user = await findUserByID(req.user.id);
     res.json({ user });
   } catch (err) {
     return next(err);
@@ -57,15 +56,6 @@ export async function readProfileByUserId(req, res, next) {
   try {
     const profile = await findProfileByUserID(req.params.id);
     res.json({ profile });
-  } catch (err) {
-    return next(err);
-  }
-}
-
-export async function readProfiles(req, res, next) {
-  try {
-    const profiles = await findProfiles();
-    res.json({ profiles });
   } catch (err) {
     return next(err);
   }

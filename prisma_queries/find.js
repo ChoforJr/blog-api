@@ -2,6 +2,7 @@ import prisma from "../config/prisma.js";
 
 export async function findUsers() {
   const users = await prisma.user.findMany({
+    where: { role: "USER" },
     select: {
       id: true,
       username: true,
@@ -58,9 +59,4 @@ export async function findProfileByUserID(userID) {
     },
   });
   return profile;
-}
-
-export async function findProfiles() {
-  const profiles = await prisma.profile.findMany({});
-  return profiles;
 }
