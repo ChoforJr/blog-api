@@ -5,11 +5,13 @@ import {
   updateBio,
 } from "../prisma_queries/update.js";
 import { matchedData } from "express-validator";
+import { hash } from "bcryptjs";
 
 export async function editUserName(req, res, next) {
   try {
     const { newUsername } = matchedData(req);
-    await updateUsername(req.user.id, newUsername);
+    const usernameLowerCase = newUsername.toLowerCase();
+    await updateUsername(req.user.id, usernameLowerCase);
     res.sendStatus(200);
   } catch (err) {
     return next(err);
@@ -19,7 +21,8 @@ export async function editUserName(req, res, next) {
 export async function editPassword(req, res, next) {
   try {
     const { newPassword } = matchedData(req);
-    await updatePassword(req.user.id, newPassword);
+    const hashedPassword = await hash(newPassword, 10);
+    await updatePassword(req.user.id, hashedPassword);
     res.sendStatus(200);
   } catch (err) {
     return next(err);

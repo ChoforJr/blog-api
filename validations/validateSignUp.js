@@ -6,8 +6,8 @@ export const validateSignUpRules = [
     .trim()
     .isEmail()
     .withMessage("Email: Should be an email")
-    .isLength({ min: 8, max: 250 })
-    .withMessage("Email: Has to have a length of between 8 and 250")
+    .isLength({ min: 8, max: 32 })
+    .withMessage("Email: Has to have a length of between 8 and 32")
     .custom(async (value) => {
       const user = await findUserByUsername(value);
       if (!user) {
@@ -19,20 +19,20 @@ export const validateSignUpRules = [
     .trim()
     .matches(/^[A-Za-z\s]\w+$/) // Allows letters, spaces, numbers and underscore
     .withMessage("Display Name: must contain only letters")
-    .isLength({ min: 4, max: 250 })
-    .withMessage("Display Name: Has to have a length of between 4 and 250"),
+    .isLength({ min: 4, max: 32 })
+    .withMessage("Display Name: Has to have a length of between 4 and 32"),
   body("password")
     .trim()
     .notEmpty()
     .withMessage("Password is required")
-    .isLength({ min: 4, max: 250 })
-    .withMessage("Password: Has to have a length of between 4 and 250"),
+    .isLength({ min: 4, max: 32 })
+    .withMessage("Password: Has to have a length of between 4 and 32"),
   body("confirmPassword")
     .trim()
     .notEmpty()
     .withMessage("Confirm Password is required")
-    .isLength({ min: 4, max: 250 })
-    .withMessage("Confirm Password: Has to have a length of between 4 and 250")
+    .isLength({ min: 4, max: 32 })
+    .withMessage("Confirm Password: Has to have a length of between 4 and 32")
     .custom(async (value, { req }) => {
       if (value !== req.body.password) {
         throw new Error("Password confirmation does not match Password");
