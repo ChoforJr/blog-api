@@ -1,7 +1,7 @@
 import prisma from "../config/prisma.js";
 import { Role } from "@prisma/client";
 
-export async function insertAdmin(username, password, displayName, bio) {
+export async function createAdmin(username, password, displayName, bio) {
   await prisma.user.create({
     data: {
       username: username,
@@ -17,7 +17,7 @@ export async function insertAdmin(username, password, displayName, bio) {
   });
 }
 
-export async function insertUser(username, password, displayName) {
+export async function createUser(username, password, displayName) {
   await prisma.user.create({
     data: {
       username: username,

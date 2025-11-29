@@ -15,12 +15,12 @@ export const validateSignUpRules = [
       }
       throw new Error("Email: Has already been Added");
     }),
-  // body("Display Name")
-  //   .trim()
-  //   .matches(/^[A-Za-z\s]+$/) // Allows letters and spaces
-  //   .withMessage("Display Name: must contain only letters")
-  //   .isLength({ min: 4, max: 250 })
-  //   .withMessage("Display Name: Has to have a length of between 4 and 250"),
+  body("displayName")
+    .trim()
+    .matches(/^[A-Za-z\s]\w+$/) // Allows letters, spaces, numbers and underscore
+    .withMessage("Display Name: must contain only letters")
+    .isLength({ min: 4, max: 250 })
+    .withMessage("Display Name: Has to have a length of between 4 and 250"),
   body("password")
     .trim()
     .notEmpty()
