@@ -30,3 +30,31 @@ export async function createUser(username, password, displayName) {
     },
   });
 }
+
+export async function createAndPublishPost(
+  title,
+  content,
+  published,
+  userId,
+  publishedAt
+) {
+  await prisma.post.create({
+    data: {
+      title: title,
+      content: content,
+      published: published,
+      userId: userId,
+      publishedAt: publishedAt,
+    },
+  });
+}
+
+export async function createAndDraftPost(title, content, userId) {
+  await prisma.post.create({
+    data: {
+      title: title,
+      content: content,
+      userId: userId,
+    },
+  });
+}

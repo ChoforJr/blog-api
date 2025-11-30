@@ -2,7 +2,12 @@ import path from "node:path";
 import dotenv from "dotenv";
 dotenv.config({ path: path.resolve(process.cwd(), ".env") });
 
-import { createAdmin, createUser } from "../prisma_queries/create.js";
+import {
+  createAdmin,
+  createUser,
+  createAndPublishPost,
+  createAndDraftPost,
+} from "../prisma_queries/create.js";
 import { findAdmin } from "../prisma_queries/find.js";
 import { matchedData } from "express-validator";
 import { hash } from "bcryptjs";
@@ -32,6 +37,30 @@ export async function addNewUser(req, res, next) {
     const hashedPassword = await hash(password, 10);
     const usernameLowerCase = username.toLowerCase();
     await createUser(usernameLowerCase, hashedPassword, displayName);
+    res.sendStatus(200);
+  } catch (err) {
+    return next(err);
+  }
+}
+
+export async function addAndPublishNewPost(req, res, next) {
+  try {
+    const { title, content } = matchedData(req);
+    const published = true;
+    const userId = req.user.id;
+    const publishedAt = new Date();
+    await createAndPublishPost(title, content, published, userId, publishedAt);
+    res.sendStatus(200);
+  } catch (err) {
+    return next(err);
+  }
+}
+
+export async function addAndDraftNewPost(req, res, next) {
+  try {
+    const { title, content } = matchedData(req);
+    const userId = req.user.id;
+    await createAndDraftPost(title, content, userId);
     res.sendStatus(200);
   } catch (err) {
     return next(err);
