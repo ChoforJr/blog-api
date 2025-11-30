@@ -46,6 +46,11 @@ export async function readUsers(req, res, next) {
 export async function readUserByID(req, res, next) {
   try {
     const user = await findUserByID(req.user.id);
+    if (!user) {
+      return res.json({
+        error: "This user doesn't exist",
+      });
+    }
     res.json({ user });
   } catch (err) {
     return next(err);
@@ -55,6 +60,11 @@ export async function readUserByID(req, res, next) {
 export async function readProfileByUserId(req, res, next) {
   try {
     const profile = await findProfileByUserID(Number(req.params.id));
+    if (!profile) {
+      return res.json({
+        error: "This user doesn't exist",
+      });
+    }
     res.json({ profile });
   } catch (err) {
     return next(err);

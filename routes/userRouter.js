@@ -17,6 +17,7 @@ import {
   validateBioRules,
   checkUserValidationResult,
 } from "../validations/validationChanges/validateUser.js";
+import { removeUserSelf } from "../controllers/delete.js";
 
 const userRouter = Router();
 
@@ -43,5 +44,7 @@ userRouter.put(
   editDisplayName
 );
 userRouter.put("/bio", validateBioRules, checkUserValidationResult, editBio);
+
+userRouter.delete("/myProfile", removeUserSelf);
 
 export default userRouter;
