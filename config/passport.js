@@ -55,9 +55,17 @@ passport.use(
 export async function authLogin(req, res, next) {
   passport.authenticate("login", async (err, user, info) => {
     try {
-      if (err || !user) {
-        const error = new Error(info?.message || "An error occurred.");
-        return next(error);
+      if (err) {
+        return res.status(500).json({
+          message: "Internal Server Error",
+          error: err.message,
+        });
+      }
+      if (!user) {
+        // "info" contains the message object you passed: { message: "Incorrect password" }
+        return res.status(401).json({
+          error: info.message || "Authentication failed",
+        });
       }
 
       req.login(user, { session: false }, async (error) => {
