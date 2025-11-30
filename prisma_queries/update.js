@@ -43,3 +43,23 @@ export async function updatePassword(userId, newPassword) {
     },
   });
 }
+
+export async function updatePost(
+  postId,
+  title,
+  content,
+  published,
+  publishedAt
+) {
+  await prisma.post.update({
+    where: {
+      id: postId,
+    },
+    data: {
+      title: title,
+      content: content,
+      published: published,
+      publishedAt: publishedAt,
+    },
+  });
+}
