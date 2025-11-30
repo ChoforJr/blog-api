@@ -56,6 +56,17 @@ app.use((err, req, res, next) => {
   return next(err);
 });
 
+app.use((err, req, res, next) => {
+  // API logic: If we are in "production", don't show the stack trace to the user
+  // If in "development", show it for debugging
+  const response = {
+    message: err.message || "Internal Server Error",
+    error: process.env.NODE_ENV === "development" ? err : {},
+  };
+
+  // If the error has a status code (like 404), use it. Otherwise default to 500.
+  res.status(err.status || 500).json(response);
+});
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, (error) => {
   if (error) {
