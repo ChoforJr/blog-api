@@ -55,7 +55,7 @@ model Comment {
   postId    Int
   comments  Comment[] @relation("commentTocomment")
   parent    Comment?  @relation("commentTocomment", fields: [parentId], references: [id], onDelete: Cascade)
-  parentId  Int
+  parentId  Int?
   createdAt DateTime  @default(now())
 }
 
