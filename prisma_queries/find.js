@@ -60,3 +60,17 @@ export async function findProfileByUserID(userID) {
   });
   return profile;
 }
+
+export async function findPosts() {
+  const users = await prisma.post.findMany({});
+  return users;
+}
+
+export async function findPublishedPosts() {
+  const users = await prisma.post.findMany({
+    where: {
+      published: true,
+    },
+  });
+  return users;
+}

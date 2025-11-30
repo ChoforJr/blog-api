@@ -3,6 +3,8 @@ import {
   findUsers,
   findUserByID,
   findProfileByUserID,
+  findPosts,
+  findPublishedPosts,
 } from "../prisma_queries/find.js";
 
 export function checkIfUserIsAdmin(req, res, next) {
@@ -66,6 +68,24 @@ export async function readProfileByUserId(req, res, next) {
       });
     }
     res.json({ profile });
+  } catch (err) {
+    return next(err);
+  }
+}
+
+export async function readPosts(req, res, next) {
+  try {
+    const posts = await findPosts();
+    res.json({ posts });
+  } catch (err) {
+    return next(err);
+  }
+}
+
+export async function readPublishedPosts(req, res, next) {
+  try {
+    const publishedPosts = await findPublishedPosts();
+    res.json({ publishedPosts });
   } catch (err) {
     return next(err);
   }
