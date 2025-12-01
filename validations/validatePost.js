@@ -3,7 +3,7 @@ import { body, validationResult } from "express-validator";
 export const validatePostRules = [
   body("title")
     .trim()
-    .matches(/^[A-Za-z\s]\w+$/) // Allows letters, spaces, numbers and underscore
+    .matches(/^[A-Za-z0-9\s_]+$/) // Allows letters, spaces, numbers and underscore
     .withMessage(
       "Title: must contain only letters, spaces, numbers or underscore"
     )
