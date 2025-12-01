@@ -3,6 +3,7 @@ import {
   readProfileByUserId,
   readAdminProfile,
   readUserByID,
+  readPublishedPosts,
 } from "../controllers/read.js";
 import {
   editUserName,
@@ -47,4 +48,5 @@ userRouter.put("/bio", validateBioRules, checkUserValidationResult, editBio);
 
 userRouter.delete("/myProfile", removeUserSelf);
 
+userRouter.get("/post", readPublishedPosts);
 export default userRouter;

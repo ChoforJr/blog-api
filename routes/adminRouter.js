@@ -8,6 +8,7 @@ import {
   validatePostRules,
   checkPostValidationResult,
 } from "../validations/validatePost.js";
+import { readPosts } from "../controllers/read.js";
 import postRouter from "./postRouter.js";
 
 const adminRouter = Router();
@@ -18,6 +19,7 @@ adminRouter.get("/users", readUsers);
 adminRouter.delete("/user/:id", removeUserByAdmin);
 adminRouter.delete("/users", removeAllUsersByAdmin);
 
+postRouter.get("/post/all", readPosts);
 adminRouter.use(
   "/post",
   validatePostRules,
