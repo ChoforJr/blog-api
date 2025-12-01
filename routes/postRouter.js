@@ -10,7 +10,7 @@ const postRouter = Router();
 postRouter.post("/publish", addAndPublishNewPost);
 postRouter.post("/draft", addAndDraftNewPost);
 
-postRouter.put("/publish", editAndPublishPost);
-postRouter.put("/draft", editAndDraftPost);
+postRouter.put("/publish/:id", editAndPublishPost);
+postRouter.put("/draft/:id", editAndDraftPost);
 
 export default postRouter;
