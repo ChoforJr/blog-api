@@ -31,7 +31,7 @@ export async function createUser(username, password, displayName) {
   });
 }
 
-export async function createAndPublishPost(
+export async function createPost(
   title,
   content,
   published,
@@ -45,16 +45,6 @@ export async function createAndPublishPost(
       published: published,
       userId: userId,
       publishedAt: publishedAt,
-    },
-  });
-}
-
-export async function createAndDraftPost(title, content, userId) {
-  await prisma.post.create({
-    data: {
-      title: title,
-      content: content,
-      userId: userId,
     },
   });
 }

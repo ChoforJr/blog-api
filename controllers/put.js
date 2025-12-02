@@ -4,6 +4,7 @@ import {
   updateDisplayName,
   updateBio,
   updatePost,
+  updatePostState,
 } from "../prisma_queries/update.js";
 import { matchedData } from "express-validator";
 import { hash } from "bcryptjs";
@@ -50,26 +51,36 @@ export async function editBio(req, res, next) {
   }
 }
 
-export async function editAndPublishPost(req, res, next) {
+export async function editPost(req, res, next) {
   try {
-    const { title, content } = matchedData(req);
-    const published = true;
+    const { title, content, published } = matchedData(req);
+    const parsedPublished = JSON.parse(published);
+    let publishedAt;
+    if (parsedPublished == true) {
+      publishedAt = new Date();
+    } else {
+      publishedAt = null;
+    }
     const postId = Number(req.params.id);
-    const publishedAt = new Date();
-    await updatePost(postId, title, content, published, publishedAt);
+    await updatePost(postId, title, content, parsedPublished, publishedAt);
     res.sendStatus(200);
   } catch (err) {
     return next(err);
   }
 }
 
-export async function editAndDraftPost(req, res, next) {
+export async function editPostState(req, res, next) {
   try {
-    const { title, content } = matchedData(req);
-    const published = false;
+    const { published } = matchedData(req);
+    const parsedPublished = JSON.parse(published);
     const postId = Number(req.params.id);
-    const publishedAt = null;
-    await updatePost(postId, title, content, published, publishedAt);
+    let publishedAt;
+    if (parsedPublished == true) {
+      publishedAt = new Date();
+    } else {
+      publishedAt = null;
+    }
+    await updatePostState(postId, parsedPublished, publishedAt);
     res.sendStatus(200);
   } catch (err) {
     return next(err);

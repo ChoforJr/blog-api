@@ -1,20 +1,19 @@
 import { Router } from "express";
-import { readUsers, readAdmin } from "../controllers/read.js";
+import { readUsers, readAdmin, readPosts } from "../controllers/read.js";
 import {
   removeUserByAdmin,
   removeAllUsersByAdmin,
+  removePost,
+  removeAllPosts,
+  removeAllDraftedPosts,
 } from "../controllers/delete.js";
 import {
   validatePostRules,
   checkPostValidationResult,
 } from "../validations/validatePost.js";
-import { readPosts } from "../controllers/read.js";
-import {
-  removePost,
-  removeAllPosts,
-  removeAllDraftedPosts,
-} from "../controllers/delete.js";
-import postRouter from "./postRouter.js";
+import { validatePostStateRules } from "../validations/validationChanges/validatePostState.js";
+import { editPostState, editPost } from "../controllers/put.js";
+import { addNewPost } from "../controllers/post.js";
 
 const adminRouter = Router();
 
@@ -26,15 +25,28 @@ adminRouter.delete("/users", removeAllUsersByAdmin);
 
 adminRouter.get("/post/all", readPosts);
 
-adminRouter.delete("/post/all", removeAllPosts);
-adminRouter.delete("/post/drafted", removeAllDraftedPosts);
-adminRouter.delete("/post/:id", removePost);
-
-adminRouter.use(
+adminRouter.post(
   "/post",
   validatePostRules,
   checkPostValidationResult,
-  postRouter
+  addNewPost
 );
+
+adminRouter.put(
+  "/post/:id",
+  validatePostRules,
+  checkPostValidationResult,
+  editPost
+);
+adminRouter.put(
+  "/post/state/:id",
+  validatePostStateRules,
+  checkPostValidationResult,
+  editPostState
+);
+
+adminRouter.delete("/post/all", removeAllPosts);
+adminRouter.delete("/post/drafted", removeAllDraftedPosts);
+adminRouter.delete("/post/:id", removePost);
 
 export default adminRouter;

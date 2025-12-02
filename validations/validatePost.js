@@ -15,6 +15,11 @@ export const validatePostRules = [
     .withMessage("Content is required")
     .isLength({ min: 4 })
     .withMessage("Content has to have a minimum of 4 characters"),
+  body("published")
+    .trim()
+    .notEmpty()
+    .isBoolean()
+    .withMessage("Published must be a boolean"),
 ];
 
 export const checkPostValidationResult = (req, res, next) => {

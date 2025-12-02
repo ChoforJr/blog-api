@@ -5,12 +5,12 @@ dotenv.config({ path: path.resolve(process.cwd(), ".env") });
 import {
   createAdmin,
   createUser,
-  createAndPublishPost,
-  createAndDraftPost,
+  createPost,
 } from "../prisma_queries/create.js";
 import { findAdmin } from "../prisma_queries/find.js";
 import { matchedData } from "express-validator";
 import { hash } from "bcryptjs";
+import { json } from "stream/consumers";
 
 async function addAdmin() {
   try {
@@ -43,24 +43,18 @@ export async function addNewUser(req, res, next) {
   }
 }
 
-export async function addAndPublishNewPost(req, res, next) {
+export async function addNewPost(req, res, next) {
   try {
-    const { title, content } = matchedData(req);
-    const published = true;
+    const { title, content, published } = matchedData(req);
+    const parsedPublished = JSON.parse(published);
+    let publishedAt;
+    if (parsedPublished == true) {
+      publishedAt = new Date();
+    } else {
+      publishedAt = null;
+    }
     const userId = req.user.id;
-    const publishedAt = new Date();
-    await createAndPublishPost(title, content, published, userId, publishedAt);
-    res.sendStatus(200);
-  } catch (err) {
-    return next(err);
-  }
-}
-
-export async function addAndDraftNewPost(req, res, next) {
-  try {
-    const { title, content } = matchedData(req);
-    const userId = req.user.id;
-    await createAndDraftPost(title, content, userId);
+    await createPost(title, content, parsedPublished, userId, publishedAt);
     res.sendStatus(200);
   } catch (err) {
     return next(err);
