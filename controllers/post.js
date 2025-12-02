@@ -60,3 +60,16 @@ export async function addNewPost(req, res, next) {
     return next(err);
   }
 }
+
+export async function addNewComment(req, res, next) {
+  try {
+    const { content, postId, parentId } = matchedData(req);
+    const parsedPostId = JSON.parse(postId);
+    const parsedParentId = JSON.parse(parentId);
+    const userId = req.user.id;
+    await createPost(content, userId, parsedPostId, parsedParentId);
+    res.sendStatus(200);
+  } catch (err) {
+    return next(err);
+  }
+}

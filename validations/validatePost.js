@@ -1,4 +1,4 @@
-import { body, validationResult } from "express-validator";
+import { body } from "express-validator";
 
 export const validatePostRules = [
   body("title")
@@ -18,15 +18,7 @@ export const validatePostRules = [
   body("published")
     .trim()
     .notEmpty()
+    .withMessage("Published State is required")
     .isBoolean()
     .withMessage("Published must be a boolean"),
 ];
-
-export const checkPostValidationResult = (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  } else {
-    next();
-  }
-};

@@ -1,4 +1,4 @@
-import { body, validationResult } from "express-validator";
+import { body } from "express-validator";
 import { compare } from "bcryptjs";
 import { findUserByUsername } from "../../prisma_queries/find.js";
 
@@ -72,12 +72,3 @@ export const validateBioRules = [
     .isLength({ min: 4, max: 64 })
     .withMessage("Bio: Has to have a length of between 4 and 64"),
 ];
-
-export const checkUserValidationResult = (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  } else {
-    next();
-  }
-};

@@ -1,4 +1,4 @@
-import { body, validationResult } from "express-validator";
+import { body } from "express-validator";
 
 export const validateLogInRules = [
   body("username")
@@ -14,12 +14,3 @@ export const validateLogInRules = [
     .isLength({ min: 4, max: 32 })
     .withMessage("Password: Has to have a length of between 4 and 32"),
 ];
-
-export const checkLoginValidationResult = (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  } else {
-    next();
-  }
-};

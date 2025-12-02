@@ -1,4 +1,4 @@
-import { body, validationResult } from "express-validator";
+import { body } from "express-validator";
 import { findUserByUsername } from "../prisma_queries/find.js";
 
 export const validateSignUpRules = [
@@ -42,12 +42,3 @@ export const validateSignUpRules = [
       return true;
     }),
 ];
-
-export const checkSignUpValidationResult = (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  } else {
-    next();
-  }
-};

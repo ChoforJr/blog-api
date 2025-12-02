@@ -16,9 +16,12 @@ import {
   validatePasswordRules,
   validateDisplayNameRules,
   validateBioRules,
-  checkUserValidationResult,
 } from "../validations/validationChanges/validateUser.js";
+import { checkValidationResult } from "../validations/checkValidationResult.js";
 import { removeUserSelf } from "../controllers/delete.js";
+
+import { addNewComment } from "../controllers/post.js";
+import { validateCommentRules } from "../validations/validateComment.js";
 
 const userRouter = Router();
 
@@ -29,24 +32,32 @@ userRouter.get("/myProfile", readUserByID);
 userRouter.put(
   "/username",
   validateUsernameRules,
-  checkUserValidationResult,
+  checkValidationResult,
   editUserName
 );
 userRouter.put(
   "/password",
   validatePasswordRules,
-  checkUserValidationResult,
+  checkValidationResult,
   editPassword
 );
 userRouter.put(
   "/displayName",
   validateDisplayNameRules,
-  checkUserValidationResult,
+  checkValidationResult,
   editDisplayName
 );
-userRouter.put("/bio", validateBioRules, checkUserValidationResult, editBio);
+userRouter.put("/bio", validateBioRules, checkValidationResult, editBio);
 
 userRouter.delete("/myProfile", removeUserSelf);
 
 userRouter.get("/post", readPublishedPosts);
+
+userRouter.post(
+  "/comment",
+  validateCommentRules,
+  checkValidationResult,
+  addNewComment
+);
+
 export default userRouter;

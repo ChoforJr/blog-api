@@ -48,3 +48,14 @@ export async function createPost(
     },
   });
 }
+
+export async function createComment(content, userId, postId, parentId) {
+  await prisma.comment.create({
+    data: {
+      content: content,
+      userId: userId,
+      postId: postId,
+      parentId: parentId,
+    },
+  });
+}

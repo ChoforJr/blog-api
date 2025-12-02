@@ -7,10 +7,8 @@ import {
   removeAllPosts,
   removeAllDraftedPosts,
 } from "../controllers/delete.js";
-import {
-  validatePostRules,
-  checkPostValidationResult,
-} from "../validations/validatePost.js";
+import { validatePostRules } from "../validations/validatePost.js";
+import { checkValidationResult } from "../validations/checkValidationResult.js";
 import { validatePostStateRules } from "../validations/validationChanges/validatePostState.js";
 import { editPostState, editPost } from "../controllers/put.js";
 import { addNewPost } from "../controllers/post.js";
@@ -25,23 +23,18 @@ adminRouter.delete("/users", removeAllUsersByAdmin);
 
 adminRouter.get("/post/all", readPosts);
 
-adminRouter.post(
-  "/post",
-  validatePostRules,
-  checkPostValidationResult,
-  addNewPost
-);
+adminRouter.post("/post", validatePostRules, checkValidationResult, addNewPost);
 
 adminRouter.put(
   "/post/:id",
   validatePostRules,
-  checkPostValidationResult,
+  checkValidationResult,
   editPost
 );
 adminRouter.put(
   "/post/state/:id",
   validatePostStateRules,
-  checkPostValidationResult,
+  checkValidationResult,
   editPostState
 );
 
