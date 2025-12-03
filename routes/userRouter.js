@@ -11,6 +11,7 @@ import {
   editPassword,
   editDisplayName,
   editBio,
+  editComment,
 } from "../controllers/put.js";
 import {
   validateUsernameRules,
@@ -18,6 +19,7 @@ import {
   validateDisplayNameRules,
   validateBioRules,
 } from "../validations/validationChanges/validateUser.js";
+import { validateCommentChangeRules } from "../validations/validationChanges/validateCommentChange.js";
 import { checkValidationResult } from "../validations/checkValidationResult.js";
 import { removeUserSelf } from "../controllers/delete.js";
 
@@ -60,6 +62,13 @@ userRouter.post(
   validateCommentRules,
   checkValidationResult,
   addNewComment
+);
+
+userRouter.put(
+  "/post/comment/:id",
+  validateCommentChangeRules,
+  checkValidationResult,
+  editComment
 );
 
 export default userRouter;

@@ -5,7 +5,9 @@ import {
   updateBio,
   updatePost,
   updatePostState,
+  updateComment,
 } from "../prisma_queries/update.js";
+import { findCommentByID } from "../prisma_queries/find.js";
 import { matchedData } from "express-validator";
 import { hash } from "bcryptjs";
 
@@ -81,6 +83,28 @@ export async function editPostState(req, res, next) {
       publishedAt = null;
     }
     await updatePostState(postId, parsedPublished, publishedAt);
+    res.sendStatus(200);
+  } catch (err) {
+    return next(err);
+  }
+}
+
+export async function editComment(req, res, next) {
+  try {
+    const { content } = matchedData(req);
+    const commentId = Number(req.params.id);
+    const comment = await findCommentByID(commentId);
+    if (!comment) {
+      return res.json({
+        error: "This Comment is doesn't exist",
+      });
+    }
+    if (comment.userId !== req.user.id) {
+      return res.json({
+        error: "You are not authorized to edit this comment",
+      });
+    }
+    await updateComment(commentId, content);
     res.sendStatus(200);
   } catch (err) {
     return next(err);

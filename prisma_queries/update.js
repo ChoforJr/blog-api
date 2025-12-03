@@ -75,3 +75,14 @@ export async function updatePostState(postId, published, publishedAt) {
     },
   });
 }
+
+export async function updateComment(commentId, content) {
+  await prisma.comment.update({
+    where: {
+      id: commentId,
+    },
+    data: {
+      content: content,
+    },
+  });
+}
