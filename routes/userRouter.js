@@ -56,7 +56,7 @@ userRouter.get("/post", readPublishedPosts);
 userRouter.get("/post/:id/comments", readCommentsOfPost);
 
 userRouter.post(
-  "/comment",
+  "/post/:id/comment",
   validateCommentRules,
   checkValidationResult,
   addNewComment

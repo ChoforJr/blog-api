@@ -75,11 +75,11 @@ export async function addNewPost(req, res, next) {
 
 export async function addNewComment(req, res, next) {
   try {
-    const { content, postId, parentId } = matchedData(req);
-    const parsedPostId = JSON.parse(postId);
+    const { content, parentId } = matchedData(req);
+    const postId = Number(req.params.id);
     let parsedParentId = JSON.parse(parentId);
     const userId = req.user.id;
-    const post = await findPublishedPostByID(parsedPostId);
+    const post = await findPublishedPostByID(postId);
     if (!post) {
       return res.json({
         error: "The Post doesn't exist",
@@ -94,7 +94,7 @@ export async function addNewComment(req, res, next) {
           error: "Parent comment is not available",
         });
       }
-      if (parentComment.postId !== parsedPostId) {
+      if (parentComment.postId !== postId) {
         return res.json({
           error: "Parent comment postId doesn't match the postId of child",
         });
@@ -103,7 +103,7 @@ export async function addNewComment(req, res, next) {
     const comment = await createComment(
       content,
       userId,
-      parsedPostId,
+      postId,
       parsedParentId
     );
     res.status(200).json({
