@@ -18,5 +18,5 @@ export const validateCommentRules = [
     .notEmpty()
     .withMessage("postId is required")
     .isNumeric()
-    .withMessage("parentId must be a Number"),
+    .withMessage("parentId must be a Number, if it is null send '0'"),
 ];

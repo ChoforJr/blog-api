@@ -6,11 +6,15 @@ import {
   createAdmin,
   createUser,
   createPost,
+  createComment,
 } from "../prisma_queries/create.js";
-import { findAdmin } from "../prisma_queries/find.js";
+import {
+  findAdmin,
+  findPublishedPostByID,
+  findCommentByID,
+} from "../prisma_queries/find.js";
 import { matchedData } from "express-validator";
 import { hash } from "bcryptjs";
-import { json } from "stream/consumers";
 
 async function addAdmin() {
   try {
@@ -65,9 +69,30 @@ export async function addNewComment(req, res, next) {
   try {
     const { content, postId, parentId } = matchedData(req);
     const parsedPostId = JSON.parse(postId);
-    const parsedParentId = JSON.parse(parentId);
+    let parsedParentId = JSON.parse(parentId);
     const userId = req.user.id;
-    await createPost(content, userId, parsedPostId, parsedParentId);
+    const post = await findPublishedPostByID(parsedPostId);
+    if (!post) {
+      return res.json({
+        error: "The Post doesn't exist",
+      });
+    }
+    if (parsedParentId === 0) {
+      parsedParentId = null;
+    } else {
+      const parentComment = await findCommentByID(parsedParentId);
+      if (!parentComment) {
+        return res.json({
+          error: "Parent comment is not available",
+        });
+      }
+      if (parentComment.postId !== parsedPostId) {
+        return res.json({
+          error: "Parent comment postId doesn't match the postId of child",
+        });
+      }
+    }
+    await createComment(content, userId, parsedPostId, parsedParentId);
     res.sendStatus(200);
   } catch (err) {
     return next(err);

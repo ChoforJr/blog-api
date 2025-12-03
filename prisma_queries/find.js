@@ -62,15 +62,43 @@ export async function findProfileByUserID(userID) {
 }
 
 export async function findPosts() {
-  const users = await prisma.post.findMany({});
-  return users;
+  const posts = await prisma.post.findMany({});
+  return posts;
 }
 
 export async function findPublishedPosts() {
-  const users = await prisma.post.findMany({
+  const posts = await prisma.post.findMany({
     where: {
       published: true,
     },
   });
-  return users;
+  return posts;
+}
+
+export async function findPostByID(postId) {
+  const post = await prisma.post.findUnique({
+    where: {
+      id: postId,
+    },
+  });
+  return post;
+}
+
+export async function findPublishedPostByID(postId) {
+  const post = await prisma.post.findUnique({
+    where: {
+      id: postId,
+      published: true,
+    },
+  });
+  return post;
+}
+
+export async function findCommentByID(commentId) {
+  const comment = await prisma.comment.findUnique({
+    where: {
+      id: commentId,
+    },
+  });
+  return comment;
 }
