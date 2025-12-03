@@ -58,8 +58,16 @@ export async function addNewPost(req, res, next) {
       publishedAt = null;
     }
     const userId = req.user.id;
-    await createPost(title, content, parsedPublished, userId, publishedAt);
-    res.sendStatus(200);
+    const post = await createPost(
+      title,
+      content,
+      parsedPublished,
+      userId,
+      publishedAt
+    );
+    res.status(200).json({
+      post,
+    });
   } catch (err) {
     return next(err);
   }
