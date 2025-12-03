@@ -102,3 +102,12 @@ export async function findCommentByID(commentId) {
   });
   return comment;
 }
+
+export async function findCommentsByPostID(postId) {
+  const comments = await prisma.comment.findMany({
+    where: {
+      postId: postId,
+    },
+  });
+  return comments;
+}

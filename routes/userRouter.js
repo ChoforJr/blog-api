@@ -4,6 +4,7 @@ import {
   readAdminProfile,
   readUserByID,
   readPublishedPosts,
+  readCommentsOfPost,
 } from "../controllers/read.js";
 import {
   editUserName,
@@ -52,6 +53,7 @@ userRouter.put("/bio", validateBioRules, checkValidationResult, editBio);
 userRouter.delete("/myProfile", removeUserSelf);
 
 userRouter.get("/post", readPublishedPosts);
+userRouter.get("/post/:id/comments", readCommentsOfPost);
 
 userRouter.post(
   "/comment",

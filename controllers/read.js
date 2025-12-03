@@ -5,6 +5,7 @@ import {
   findProfileByUserID,
   findPosts,
   findPublishedPosts,
+  findCommentsByPostID,
 } from "../prisma_queries/find.js";
 
 export function checkIfUserIsAdmin(req, res, next) {
@@ -86,6 +87,15 @@ export async function readPublishedPosts(req, res, next) {
   try {
     const publishedPosts = await findPublishedPosts();
     res.json({ publishedPosts });
+  } catch (err) {
+    return next(err);
+  }
+}
+
+export async function readCommentsOfPost(req, res, next) {
+  try {
+    const comments = await findCommentsByPostID(Number(req.params.id));
+    res.json({ comments });
   } catch (err) {
     return next(err);
   }
