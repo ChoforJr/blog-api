@@ -92,8 +92,15 @@ export async function addNewComment(req, res, next) {
         });
       }
     }
-    await createComment(content, userId, parsedPostId, parsedParentId);
-    res.sendStatus(200);
+    const comment = await createComment(
+      content,
+      userId,
+      parsedPostId,
+      parsedParentId
+    );
+    res.status(200).json({
+      comment,
+    });
   } catch (err) {
     return next(err);
   }

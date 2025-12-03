@@ -50,7 +50,7 @@ export async function createPost(
 }
 
 export async function createComment(content, userId, postId, parentId) {
-  await prisma.comment.create({
+  const comment = await prisma.comment.createManyAndReturn({
     data: {
       content: content,
       userId: userId,
@@ -58,4 +58,5 @@ export async function createComment(content, userId, postId, parentId) {
       parentId: parentId,
     },
   });
+  return comment;
 }
