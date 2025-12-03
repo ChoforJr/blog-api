@@ -4,8 +4,15 @@ import {
   deletePost,
   deleteAllPosts,
   deleteAllDraftedPosts,
+  deleteComment,
+  deleteAllComments,
+  deleteCommentsOfAPost,
 } from "../prisma_queries/delete.js";
-import { findUserByID } from "../prisma_queries/find.js";
+import {
+  findUserByID,
+  findPostByID,
+  findCommentByID,
+} from "../prisma_queries/find.js";
 
 export async function removeUserSelf(req, res, next) {
   try {
@@ -63,6 +70,52 @@ export async function removeAllPosts(req, res, next) {
 export async function removeAllDraftedPosts(req, res, next) {
   try {
     await deleteAllDraftedPosts();
+    res.sendStatus(200);
+  } catch (err) {
+    return next(err);
+  }
+}
+
+export async function removeAllComments(req, res, next) {
+  try {
+    await deleteAllComments();
+    res.sendStatus(200);
+  } catch (err) {
+    return next(err);
+  }
+}
+
+export async function removeCommentsOfAPost(req, res, next) {
+  try {
+    const postId = Number(req.params.id);
+    const post = await findPostByID(postId);
+    if (!post) {
+      return res.json({
+        error: "This Post doesn't exist",
+      });
+    }
+    await deleteCommentsOfAPost(postId);
+    res.sendStatus(200);
+  } catch (err) {
+    return next(err);
+  }
+}
+
+export async function removeComment(req, res, next) {
+  try {
+    const commentId = Number(req.params.id);
+    const comment = await findCommentByID(commentId);
+    if (!comment) {
+      return res.json({
+        error: "This Comment doesn't exist",
+      });
+    }
+    if (comment.userId !== req.user.id && req.user.role !== "ADMIN") {
+      return res.json({
+        error: "You are not authorized to delete this comment",
+      });
+    }
+    await deleteComment(commentId);
     res.sendStatus(200);
   } catch (err) {
     return next(err);

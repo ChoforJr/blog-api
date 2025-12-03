@@ -6,6 +6,9 @@ import {
   removePost,
   removeAllPosts,
   removeAllDraftedPosts,
+  removeComment,
+  removeCommentsOfAPost,
+  removeAllComments,
 } from "../controllers/delete.js";
 import { validatePostRules } from "../validations/validatePost.js";
 import { checkValidationResult } from "../validations/checkValidationResult.js";
@@ -40,6 +43,11 @@ adminRouter.put(
 
 adminRouter.delete("/post/all", removeAllPosts);
 adminRouter.delete("/post/drafted", removeAllDraftedPosts);
+
+adminRouter.delete("/post/comment/:id", removeComment);
+adminRouter.delete("/post/:id/comments", removeCommentsOfAPost);
+adminRouter.delete("/comments/all", removeAllComments);
+
 adminRouter.delete("/post/:id", removePost);
 
 export default adminRouter;

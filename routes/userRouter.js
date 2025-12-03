@@ -21,7 +21,7 @@ import {
 } from "../validations/validationChanges/validateUser.js";
 import { validateCommentChangeRules } from "../validations/validationChanges/validateCommentChange.js";
 import { checkValidationResult } from "../validations/checkValidationResult.js";
-import { removeUserSelf } from "../controllers/delete.js";
+import { removeUserSelf, removeComment } from "../controllers/delete.js";
 
 import { addNewComment } from "../controllers/post.js";
 import { validateCommentRules } from "../validations/validateComment.js";
@@ -70,5 +70,7 @@ userRouter.put(
   checkValidationResult,
   editComment
 );
+
+userRouter.delete("/post/comment/:id", removeComment);
 
 export default userRouter;

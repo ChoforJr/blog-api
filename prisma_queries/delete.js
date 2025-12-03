@@ -35,3 +35,23 @@ export async function deleteAllDraftedPosts() {
     },
   });
 }
+
+export async function deleteCommentsOfAPost(postId) {
+  await prisma.comment.deleteMany({
+    where: {
+      postId: postId,
+    },
+  });
+}
+
+export async function deleteAllComments() {
+  await prisma.comment.deleteMany({});
+}
+
+export async function deleteComment(commentId) {
+  await prisma.comment.delete({
+    where: {
+      id: commentId,
+    },
+  });
+}
