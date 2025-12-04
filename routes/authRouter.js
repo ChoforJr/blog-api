@@ -2,6 +2,7 @@ import { Router } from "express";
 import passport from "passport";
 import { authLogin } from "../config/passport.js";
 
+import { readPublishedPosts, readCommentsOfPost } from "../controllers/read.js";
 import { addNewUser } from "../controllers/post.js";
 import { validateSignUpRules } from "..//validations/validateSignUp.js";
 import { checkValidationResult } from "../validations/checkValidationResult.js";
@@ -18,6 +19,9 @@ authRouter.post(
 );
 
 authRouter.post("/login", validateLogInRules, checkValidationResult, authLogin);
+
+authRouter.get("/post", readPublishedPosts);
+authRouter.get("/post/:id/comments", readCommentsOfPost);
 
 authRouter.use(
   "/",
