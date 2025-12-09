@@ -111,3 +111,8 @@ export async function findCommentsByPostID(postId) {
   });
   return comments;
 }
+
+export async function findComments() {
+  const comments = await prisma.comment.findMany({});
+  return comments;
+}
