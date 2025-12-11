@@ -3,6 +3,7 @@ import {
   findUsers,
   findUserByID,
   findProfileByUserID,
+  findProfiles,
   findPosts,
   findPublishedPosts,
   findCommentsByPostID,
@@ -71,6 +72,15 @@ export async function readProfileByUserId(req, res, next) {
       });
     }
     res.json({ profile });
+  } catch (err) {
+    return next(err);
+  }
+}
+
+export async function readProfiles(req, res, next) {
+  try {
+    const profiles = await findProfiles();
+    res.json({ profiles });
   } catch (err) {
     return next(err);
   }

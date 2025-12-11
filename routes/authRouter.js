@@ -6,6 +6,7 @@ import {
   readPublishedPosts,
   readCommentsOfPost,
   readComments,
+  readProfiles,
 } from "../controllers/read.js";
 import { addNewUser } from "../controllers/post.js";
 import { validateSignUpRules } from "..//validations/validateSignUp.js";
@@ -24,6 +25,7 @@ authRouter.post(
 
 authRouter.post("/login", validateLogInRules, checkValidationResult, authLogin);
 
+authRouter.get("/profiles", readProfiles);
 authRouter.get("/post", readPublishedPosts);
 authRouter.get("/post/:id/comments", readCommentsOfPost);
 authRouter.get("/comments", readComments);

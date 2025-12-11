@@ -61,6 +61,11 @@ export async function findProfileByUserID(userID) {
   return profile;
 }
 
+export async function findProfiles() {
+  const profiles = await prisma.profile.findMany({});
+  return profiles;
+}
+
 export async function findPosts() {
   const posts = await prisma.post.findMany({});
   return posts;

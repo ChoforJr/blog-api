@@ -47,16 +47,13 @@ model Post {
 }
 
 model Comment {
-  id        Int       @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   content   String
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    Int
-  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    Int
-  comments  Comment[] @relation("commentTocomment")
-  parent    Comment?  @relation("commentTocomment", fields: [parentId], references: [id], onDelete: Cascade)
-  parentId  Int?
-  createdAt DateTime  @default(now())
+  createdAt DateTime @default(now())
 }
 
 enum Role {
