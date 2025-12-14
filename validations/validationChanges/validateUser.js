@@ -60,7 +60,7 @@ export const validatePasswordRules = [
 export const validateDisplayNameRules = [
   body("newDisplayName")
     .trim()
-    .matches(/^[A-Za-z\s]\w+$/) // Allows letters, spaces, numbers and underscore
+    .matches(/^[A-Za-z0-9\s_]+$/) // Allows letters, spaces, numbers and underscore
     .withMessage("Display Name: must contain only letters")
     .isLength({ min: 4, max: 32 })
     .withMessage("Display Name: Has to have a length of between 4 and 32"),
