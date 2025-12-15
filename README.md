@@ -1,13 +1,10 @@
-# template3-expressjs
+# BLOG API
 
-This express template is build as a RESTAPI and made in a way only specific sites can access its data
+I am building a blog and i need a backend to process some operations that is why i am building this RESTAPI,
+it will use local strategy and JWT for authentication and authorization respectively, and ofcourse it will be
+a posgresql database that will be managed using Prisma ORM
 
 # Author : FORSAKANG CHOFOR JUNIOR
-
-# This express template using prisma
-
-It will contain some files you may not need It is up to you remove and add
-what-ever you need
 
 # Run the command below in your terminal to genrate a key for secret key
 
