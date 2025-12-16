@@ -5,8 +5,7 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "copy-assets": "cp -R views dist && cp -R public dist",
-    "build": "npx prisma generate && npx tsc && npm run copy-assets",
+    "build": "npx prisma generate && npx tsc",
     "start": "node dist/app.js",
     "dev": "node --watch app.js",
     "prismaGen": "npx prisma generate",
