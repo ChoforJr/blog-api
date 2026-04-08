@@ -2,6 +2,13 @@
 
 A comprehensive RESTful API backend for a blog application with user authentication, post management, and commenting functionality.
 
+## Related Projects
+
+This API is used by two client applications:
+
+- **[Admin Client](https://github.com/ChoforJr/admin-client-blog-api)** - Dashboard for managing posts and users
+- **[User Client](https://github.com/ChoforJr/user-client-blog-api)** - Public-facing blog interface
+
 ## Table of Contents
 
 - [Features](#features)
@@ -220,13 +227,6 @@ blog-api/
 │
 └── views/               # EJS templates (if applicable)
 ```
-
-## Related Projects
-
-This API is used by two client applications:
-
-- **[Admin Client](https://github.com/ChoforJr/admin-client-blog-api)** - Dashboard for managing posts and users
-- **[User Client](https://github.com/ChoforJr/user-client-blog-api)** - Public-facing blog interface
 
 ## Author
 
