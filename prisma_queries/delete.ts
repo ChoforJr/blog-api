@@ -8,7 +8,7 @@ export async function deleteAllUsersExceptAdmin() {
   });
 }
 
-export async function deleteUserByID(userID) {
+export async function deleteUserByID(userID: number) {
   await prisma.user.delete({
     where: {
       id: userID,
@@ -16,7 +16,7 @@ export async function deleteUserByID(userID) {
   });
 }
 
-export async function deletePost(postId) {
+export async function deletePost(postId: number) {
   await prisma.post.delete({
     where: {
       id: postId,
@@ -36,7 +36,7 @@ export async function deleteAllDraftedPosts() {
   });
 }
 
-export async function deleteCommentsOfAPost(postId) {
+export async function deleteCommentsOfAPost(postId: number) {
   await prisma.comment.deleteMany({
     where: {
       postId: postId,
@@ -48,7 +48,7 @@ export async function deleteAllComments() {
   await prisma.comment.deleteMany({});
 }
 
-export async function deleteComment(commentId) {
+export async function deleteComment(commentId: number) {
   await prisma.comment.delete({
     where: {
       id: commentId,

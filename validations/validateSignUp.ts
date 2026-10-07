@@ -4,6 +4,7 @@ import { findUserByUsername } from "../prisma_queries/find.js";
 export const validateSignUpRules = [
   body("username")
     .trim()
+    .customSanitizer((value: string) => value.toLowerCase())
     .isEmail()
     .withMessage("Email: Should be an email")
     .isLength({ min: 8, max: 32 })
@@ -27,14 +28,16 @@ export const validateSignUpRules = [
     .trim()
     .notEmpty()
     .withMessage("Password is required")
-    .isLength({ min: 4, max: 32 })
-    .withMessage("Password: Has to have a length of between 4 and 32"),
+    .isLength({ min: 12, max: 72 })
+    .custom((value: string) => Buffer.byteLength(value, "utf8") <= 72)
+    .withMessage("Password: Has to have a length of between 12 and 72 bytes"),
   body("confirmPassword")
     .trim()
     .notEmpty()
     .withMessage("Confirm Password is required")
-    .isLength({ min: 4, max: 32 })
-    .withMessage("Confirm Password: Has to have a length of between 4 and 32")
+    .isLength({ min: 12, max: 72 })
+    .custom((value: string) => Buffer.byteLength(value, "utf8") <= 72)
+    .withMessage("Confirm Password: Has to have a length of between 12 and 72 bytes")
     .custom(async (value, { req }) => {
       if (value !== req.body.password) {
         throw new Error("Password confirmation does not match Password");

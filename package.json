@@ -2,16 +2,20 @@
   "name": "blog-api",
   "version": "1.0.0",
   "description": "This is an API for my blog that was made for the odin project",
-  "main": "app.js",
+  "main": "dist/server.js",
   "type": "module",
   "scripts": {
-    "build": "npx prisma generate && npx tsc",
-    "start": "node dist/app.js",
-    "dev": "node --watch app.js",
-    "prismaGen": "npx prisma generate",
-    "prismaMg": "npx prisma migrate dev --name init",
-    "startRawSql": "npx prisma generate --sql",
-    "watchRawSql": "npx prisma generate --sql --watch"
+    "build": "prisma generate && tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "dev": "tsx watch server.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "tsx --test test/*.test.ts",
+    "seed:admin": "tsx prisma/seed.ts",
+    "prismaDeploy": "prisma migrate deploy",
+    "prismaGen": "prisma generate",
+    "prismaMg": "prisma migrate dev --name init",
+    "startRawSql": "prisma generate --sql",
+    "watchRawSql": "prisma generate --sql --watch"
   },
   "repository": {
     "type": "git",
@@ -20,6 +24,9 @@
   "keywords": [],
   "author": "FORSAKANG CHOFOR JUNIOR",
   "license": "",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "bugs": {
     "url": "https://github.com/ChoforJr/blog-api/issues"
   },
@@ -38,14 +45,19 @@
     "node-cron": "^4.2.1",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "ws": "^8.21.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/multer": "^2.0.0",
     "@types/node": "^24.10.1",
     "@types/passport": "^1.0.17",
+    "@types/passport-jwt": "^4.0.1",
     "@types/passport-local": "^1.0.38",
+    "@types/ws": "^8.18.2",
     "ejs-lint": "^2.0.1",
     "prisma": "^6.19.0",
     "tsx": "^4.20.6",

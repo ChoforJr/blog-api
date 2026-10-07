@@ -31,14 +31,14 @@ export async function findAdmin() {
   return user;
 }
 
-export async function findUserByUsername(username) {
+export async function findUserByUsername(username: string) {
   const user = await prisma.user.findUnique({
     where: { username: username },
   });
   return user;
 }
 
-export async function findUserByID(userId) {
+export async function findUserByID(userId: number) {
   const user = await prisma.user.findUnique({
     where: { id: userId },
     select: {
@@ -52,7 +52,7 @@ export async function findUserByID(userId) {
   return user;
 }
 
-export async function findProfileByUserID(userID) {
+export async function findProfileByUserID(userID: number) {
   const profile = await prisma.profile.findUnique({
     where: {
       userId: userID,
@@ -80,7 +80,7 @@ export async function findPublishedPosts() {
   return posts;
 }
 
-export async function findPostByID(postId) {
+export async function findPostByID(postId: number) {
   const post = await prisma.post.findUnique({
     where: {
       id: postId,
@@ -89,7 +89,7 @@ export async function findPostByID(postId) {
   return post;
 }
 
-export async function findPublishedPostByID(postId) {
+export async function findPublishedPostByID(postId: number) {
   const post = await prisma.post.findUnique({
     where: {
       id: postId,
@@ -99,7 +99,7 @@ export async function findPublishedPostByID(postId) {
   return post;
 }
 
-export async function findCommentByID(commentId) {
+export async function findCommentByID(commentId: number) {
   const comment = await prisma.comment.findUnique({
     where: {
       id: commentId,
@@ -108,7 +108,7 @@ export async function findCommentByID(commentId) {
   return comment;
 }
 
-export async function findCommentsByPostID(postId) {
+export async function findCommentsByPostID(postId: number) {
   const comments = await prisma.comment.findMany({
     where: {
       postId: postId,

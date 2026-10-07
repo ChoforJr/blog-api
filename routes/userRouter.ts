@@ -23,8 +23,11 @@ import { removeUserSelf, removeComment } from "../controllers/delete.js";
 
 import { addNewComment } from "../controllers/post.js";
 import { validateCommentRules } from "../validations/validateComment.js";
+import { validateId } from "../middleware/validateId.js";
+import { requireUserRole } from "../middleware/requireUserRole.js";
 
 const userRouter = Router();
+userRouter.param("id", validateId);
 
 userRouter.get("/profile/admin", readAdminProfile);
 userRouter.get("/profile/:id", readProfileByUserId);
@@ -54,6 +57,7 @@ userRouter.delete("/myProfile", removeUserSelf);
 
 userRouter.post(
   "/post/:id/comment",
+  requireUserRole,
   validateCommentRules,
   checkValidationResult,
   addNewComment

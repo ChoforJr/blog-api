@@ -1,7 +1,12 @@
 import prisma from "../config/prisma.js";
 import { Role } from "@prisma/client";
 
-export async function createAdmin(username, password, displayName, bio) {
+export async function createAdmin(
+  username: string,
+  password: string,
+  displayName: string,
+  bio: string
+) {
   await prisma.user.create({
     data: {
       username: username,
@@ -17,7 +22,11 @@ export async function createAdmin(username, password, displayName, bio) {
   });
 }
 
-export async function createUser(username, password, displayName) {
+export async function createUser(
+  username: string,
+  password: string,
+  displayName: string
+) {
   await prisma.user.create({
     data: {
       username: username,
@@ -32,11 +41,11 @@ export async function createUser(username, password, displayName) {
 }
 
 export async function createPost(
-  title,
-  content,
-  published,
-  userId,
-  publishedAt
+  title: string,
+  content: string,
+  published: boolean,
+  userId: number,
+  publishedAt: Date | null
 ) {
   const post = await prisma.post.createManyAndReturn({
     data: {
@@ -50,7 +59,11 @@ export async function createPost(
   return post;
 }
 
-export async function createComment(content, userId, postId) {
+export async function createComment(
+  content: string,
+  userId: number,
+  postId: number
+) {
   const comment = await prisma.comment.createManyAndReturn({
     data: {
       content: content,

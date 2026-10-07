@@ -1,6 +1,6 @@
 import prisma from "../config/prisma.js";
 
-export async function updateBio(userId, newBio) {
+export async function updateBio(userId: number, newBio: string) {
   await prisma.profile.update({
     where: {
       userId: userId,
@@ -11,7 +11,7 @@ export async function updateBio(userId, newBio) {
   });
 }
 
-export async function updateDisplayName(userId, newDisplayName) {
+export async function updateDisplayName(userId: number, newDisplayName: string) {
   await prisma.profile.update({
     where: {
       userId: userId,
@@ -22,7 +22,7 @@ export async function updateDisplayName(userId, newDisplayName) {
   });
 }
 
-export async function updateUsername(userId, newUsername) {
+export async function updateUsername(userId: number, newUsername: string) {
   await prisma.user.update({
     where: {
       id: userId,
@@ -33,7 +33,7 @@ export async function updateUsername(userId, newUsername) {
   });
 }
 
-export async function updatePassword(userId, newPassword) {
+export async function updatePassword(userId: number, newPassword: string) {
   await prisma.user.update({
     where: {
       id: userId,
@@ -45,13 +45,13 @@ export async function updatePassword(userId, newPassword) {
 }
 
 export async function updatePost(
-  postId,
-  title,
-  content,
-  published,
-  publishedAt
+  postId: number,
+  title: string,
+  content: string,
+  published: boolean,
+  publishedAt: Date | null
 ) {
-  await prisma.post.update({
+  return prisma.post.update({
     where: {
       id: postId,
     },
@@ -64,8 +64,12 @@ export async function updatePost(
   });
 }
 
-export async function updatePostState(postId, published, publishedAt) {
-  await prisma.post.update({
+export async function updatePostState(
+  postId: number,
+  published: boolean,
+  publishedAt: Date | null
+) {
+  return prisma.post.update({
     where: {
       id: postId,
     },
@@ -76,8 +80,8 @@ export async function updatePostState(postId, published, publishedAt) {
   });
 }
 
-export async function updateComment(commentId, content) {
-  await prisma.comment.update({
+export async function updateComment(commentId: number, content: string) {
+  return prisma.comment.update({
     where: {
       id: commentId,
     },

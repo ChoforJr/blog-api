@@ -15,8 +15,10 @@ import { checkValidationResult } from "../validations/checkValidationResult.js";
 import { validatePostStateRules } from "../validations/validationChanges/validatePostState.js";
 import { editPostState, editPost } from "../controllers/put.js";
 import { addNewPost } from "../controllers/post.js";
+import { validateId } from "../middleware/validateId.js";
 
 const adminRouter = Router();
+adminRouter.param("id", validateId);
 
 adminRouter.get("/profile", readAdmin);
 adminRouter.get("/users", readUsers);
