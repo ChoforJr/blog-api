@@ -42,6 +42,22 @@ test("post validation accepts punctuation titles and both boolean body formats",
   }
 });
 
+test("post validation accepts longer titles within the supported limit", async () => {
+  for (const [title, expectedValid] of [
+    ["A thoughtful title that is longer than thirty-two characters", true],
+    ["a".repeat(120), true],
+    ["a".repeat(121), false],
+  ] as const) {
+    const { errors } = await runRules(validatePostRules, {
+      title,
+      content: "A useful post body.",
+      published: false,
+    });
+
+    assert.equal(errors.isEmpty(), expectedValid);
+  }
+});
+
 test("post state validation rejects values that are not booleans", async () => {
   const { errors } = await runRules(validatePostStateRules, {
     published: "yes",

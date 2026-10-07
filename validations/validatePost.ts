@@ -7,8 +7,8 @@ import {
 export const validatePostRules = [
   body("title")
     .trim()
-    .isLength({ min: 4, max: 32 })
-    .withMessage("Title: Has to have a length of between 4 and 32"),
+    .isLength({ min: 4, max: 120 })
+    .withMessage("Title must be between 4 and 120 characters"),
   body("content")
     .trim()
     .notEmpty()
